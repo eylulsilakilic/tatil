@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sana Bir Sorum Var...</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tatilde bana içki ısmarlayacak mısın? 🤔</h1>
+        <div class="button-container">
+            <div class="button" id="no-button">Hayır 😭</div>
+            <a href="tebrikler.html" class="button" id="yes-button">Evet 🥰</a>
+        </div>
+    </div>
+
+    <script>
+        const noButton = document.getElementById('no-button');
+        const yesButton = document.getElementById('yes-button');
+
+        let yesButtonScale = 1;
+
+        noButton.addEventListener('mouseover', () => {
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            const buttonWidth = noButton.offsetWidth;
+            const buttonHeight = noButton.offsetHeight;
+
+            // Rastgele X ve Y pozisyonları hesaplıyoruz
+            // Kutunun ekran dışına taşmaması için sınırlar belirlendi
+            const randomX = Math.floor(Math.random() * (viewportWidth - buttonWidth));
+            const randomY = Math.floor(Math.random() * (viewportHeight - buttonHeight));
+
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${randomX}px`;
+            noButton.style.top = `${randomY}px`;
+
+            // "Evet" kutusunu daha hızlı büyütmek için çarpanı artırdık (örneğin %40)
+            yesButtonScale += 0.4; 
+            
+            yesButton.style.transform = `scale(${yesButtonScale})`;
+        });
+
+        // Mobil cihazlarda da "Hayır" butonuna dokunulduğunda çalışması için
+        noButton.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Varsayılan dokunma davranışını engelle
+            // mouseover ile aynı fonksiyonu çağırabiliriz
+            noButton.dispatchEvent(new MouseEvent('mouseover'));
+        });
+    </script>
+
+</body>
+</html>
